@@ -1,107 +1,96 @@
-
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
 
-    <title>Hello Kitties</title>
+</head>
+<body>
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  </head>
+  <h1>TO DO LIST</h1>
+    <ul class='message'>
+        <li id='m1'>
+            <p>message1</p>
+            <button onclick="changeMessage('m1')">CHANGE</button>
+          <button onclick="removeMessage('m1')">REMOVE</button>
+        </li>
+        <li id='m2'>
+            <p>message2</p>
+            <button onclick="changeMessage('m2')">CHANGE</button>
+          <button onclick="removeMessage('m2')">REMOVE</button>
+        </li>
+        <li id='m3'>
+            <p>message3</p>
+            <button onclick="changeMessage('m3')">CHANGE</button>
+          <button onclick="removeMessage('m3')">REMOVE</button>
+        </li>
+        <li id='m4'>
+            <p>message4</p>
+            <button onclick="changeMessage('m4')">CHANGE</button>
+          <button onclick="removeMessage('m4')">REMOVE</button>
+        </li>    
+    </ul>
+     <input type="text" id="message"/>
+     <select name='urgence' id='urgence'>
+     <option value="urgent">URGENT</option>
+     <option value="later">LATER</option>
+     </select>
+     <button onclick="addMessage()">ADD</button>
+     
 
-  <body>
+     <script type="text/javascript">
+      var n = 4
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Lovely kitties</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right">
-          </form>
-        </div><!--/.navbar-collapse -->
-      </div>
-    </nav>
+      $(document).keypress(function (e) {
+        if (e.which == 13) {
+            addMessage();
+        }
+    });
 
-    <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Hello, here!</h1>
-        <p>This is my awesome kitties from Japan.</p>
-      </div>
-    </div>
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-        <div class="col-md-4 thumbnail">
-          <h2>Cat 1</h2>
-          <img src="https://images.template.net/wp-content/uploads/2014/12/1312.jpg"/>
-          <p><a class="btn btn-default" href="#" role="button">Buy it now, £9999.9 &raquo;</a></p>
-        </div>
         
-        <div class="col-md-4 thumbnail">
-          <h2>Cat 2</h2>
-          <img src="https://images.template.net/wp-content/uploads/2014/12/379.jpg"/>
-          <p><a class="btn btn-default" href="#" role="button">Buy it now, £9999.9 &raquo;</a></p>
-           </div>
-        <div class="col-md-4 thumbnail">
-          <h2>Premium cat</h2>
+        
+
+        var options = { 
+            weekday: "long", year: "numeric", month: "short", day: "numeric" }; 
+        
+      function addMessage() {
+      var text = $('input').val(); 
+            var selectedOption = $('#urgence option:selected').text();
+      $('input').val('');
+          n ++
+          if (text.length===0)
+            return alert('Ooops! Please type somthing!');
+        $('ul').append(
+                  '<li id="m'+n+'"><p><span class="context">'+text
+                 +'</span><b> '+selectedOption+'</b></p>'
+                 +'<span>' 
+                 + new Date().toLocaleDateString("en-GB",options)
+                 +' '
+                 + new Date().toLocaleTimeString("en-GB")
+                 +' '
+                 +'</span>'
+                 +'<button onclick="changeMessage(\'m'+n+'\')">CHANGE</button>'
+                 +'<button onclick="removeMessage(\'m'+n+'\')">REMOVE</button>' 
+                 +'</li>');
+
+    };  
+
+    function removeMessage(id){
+      $('li#'+id).remove();
+    };
+
+       
+
+        
+
+        function changeMessage(id){ 
+             var currentValue = $('li#'+id+' .context').text();
+             var newValue = prompt('How would you like to change?', currentValue);
+
+             if (newValue.length ===0) 
+                 return alert('Ooops! Please type somthing!');
+             $('li#'+id+' .context').text(newValue);
+        };
           
-
-          <img src="http://www.bikersshop.info/wp-content/uploads/cat-drawings-template-13-free-pdf-documents-format-download-drawings-cats.jpg"/>
-
-          <p><a class="btn btn-default" href="#" role="button">Buy it now, £9999.9 &raquo;</a></p>
-          </div>
-      </div>
-
-      <hr>
-
-      <div class="row">
-        <div class="col-md-4">
-          <a href="#" class="thumbnail">
-           <img src="https://www.thetimes.co.uk/imageserver/image/methode%2Ftimes%2Fprod%2Fweb%2Fbin%2Fe3e231d0-6e12-11e7-91b4-8977b98727e9.jpg?crop=1888%2C1062%2C0%2C-0&resize=685" alt="...">
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="#" class="thumbnail">
-           <img src="https://www.culturesforhealth.com/wp/wp-content/uploads/2016/05/Sour-Cream-Vanilla-Frosting-Recipe_header_01.jpg" alt="...">
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="#" class="thumbnail">
-           <img src="http://assets.kraftfoods.com/recipe_images/opendeploy/Sour_Cream-Topped_Cheesecake_640x428.jpg" alt="...">
-          </a>
-        </div>
-
-      </div>
-
-      <footer>
-        <p>&copy; 2016 Company, Inc.</p>
-      </footer>
-    </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-  </body>
-</html>
+     </script>
+     <p>&copy; 2018 YUKI INASAWA<p>
+</body>
