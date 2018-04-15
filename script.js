@@ -81,13 +81,13 @@ function removeMessage(element){
       
         
 
-function changeMessage(id){ 
-    var currentValue = $('li#'+id+' .context').text(); 
-    console.log ($('li#'+id+' .context'))         
+function changeMessage(element){ 
+    var currentValue = $('li#'+element.id+' .context').text(); 
+    console.log ($('li#'+element.id+' .context'))         
     var newValue = prompt('How would you like to change?', currentValue);
 
     if (newValue.length ===0) 
     return alert('Ooops! Please type somthing!');
-    $('li#'+id+' .context').text(newValue);
+    $('li#'+element.id+' .context').text(newValue);
      }
         
