@@ -32,17 +32,15 @@ function render (){
          + new Date().toLocaleTimeString("en-GB")
          +' '
          +'</span>'
-         +'<button onclick="changeMessage(\'m'+element.id+'\')" class="btn btn-outline-warning btn-sm">CHANGE</button>'
-         +' <button onclick="removeMessage(\'m'+element.id+'\')" class="btn btn-outline-danger btn-sm">REMOVE</button>' 
+         +'<button onclick="changeMessage('+element.id+')" class="btn btn-outline-warning btn-sm">CHANGE</button>'
+         +' <button onclick="removeMessage('+element.id+')" class="btn btn-outline-danger btn-sm">REMOVE</button>' 
          +'</li>');
-  
-
   })
 }
 
      
 
-      $(document).keypress(function (e) {
+    $(document).keypress(function (e) {
         if (e.which == 13) {
             addMessage();
         }
@@ -62,7 +60,7 @@ function addMessage() {
       if (text.length===0)
       return alert('Ooops! Please type somthing!');
       $('ul.message').append(
-            '<li id="m'+n+'"><p><span class="context">'+text
+            '<li id="m"><p><span class="context">'+text
            +'</span><b> '+selectedOption+'</b></p>'
            +'<span>' 
            + new Date().toLocaleDateString("en-GB",options)
@@ -76,8 +74,8 @@ function addMessage() {
 
   }  
 
-function removeMessage(id){
-      $('li#'+id).remove();
+function removeMessage(element){
+      $('li#'+element.id).remove();
     }
 
       
