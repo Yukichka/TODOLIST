@@ -32,8 +32,8 @@ function render (){
          + new Date().toLocaleTimeString("en-GB")
          +' '
          +'</span>'
-         +'<button onclick="changeMessage('+element.id+')" class="btn btn-outline-warning btn-sm">CHANGE</button>'
-         +' <button onclick="removeMessage('+element.id+')" class="btn btn-outline-danger btn-sm">REMOVE</button>' 
+         +'<button onclick="changeMessage(\''+element.id+'\')" class="btn btn-outline-warning btn-sm">CHANGE</button>'
+         +' <button onclick="removeMessage(\''+element.id+'\')" class="btn btn-outline-danger btn-sm">REMOVE</button>' 
          +'</li>');
   })
 }
@@ -49,45 +49,43 @@ function render (){
         
       var options = { 
           weekday: "long", year: "numeric", month: "short", day: "numeric" }; 
-        
-function addMessage() {
-      var text = $('input#message').val(); 
 
-      var selectedOption = $('#urgence option:selected').text();
+var n = 4     
 
-      $('input').val('');
-      n ++
-      if (text.length===0)
-      return alert('Ooops! Please type somthing!');
-      $('ul.message').append(
-            '<li id="m"><p><span class="context">'+text
-           +'</span><b> '+selectedOption+'</b></p>'
-           +'<span>' 
-           + new Date().toLocaleDateString("en-GB",options)
-           +' '
-           + new Date().toLocaleTimeString("en-GB")
-           +' '
-           +'</span>'
-           +'<button onclick="changeMessage(\'m'+n+'\')" class="btn btn-outline-warning btn-sm">CHANGE</button>'
-           +' <button onclick="removeMessage(\'m'+n+'\')" class="btn btn-outline-danger btn-sm">REMOVE</button>' 
-           +'</li>');
+function addMessage(element) {
+  var text = $('input#message').val(); 
 
-  }  
+  var selectedOption = $('#urgence option:selected').val();
+
+  $('input').val('');
+  
+  if (text.length===0)
+  return alert('Ooops! Please type somthing!');
+  
+  n++
+  dataSet.push( { id:'m'+n, text: text, timeStamp: new Date(), urgence: selectedOption })
+  render();
+}  
 
 function removeMessage(element){
-      $('li#'+element.id).remove();
-    }
+  $('li#'+element.id).remove();
+}
 
       
         
 
-function changeMessage(element){ 
-    var currentValue = $('li#'+element.id+' .context').text(); 
-    console.log ($('li#'+element.id+' .context'))         
-    var newValue = prompt('How would you like to change?', currentValue);
+function changeMessage(todoId){
+  console.log("changeMessage: for todoId: ", todoId) 
 
-    if (newValue.length ===0) 
+  var toDo = dataSet.find(function (element){return element.id == todoId})
+  console.log("changeMessage: foundtoDo: ", toDo) 
+
+  console.log (toDo.text)         
+  var newValue = prompt('How would you like to change?', toDo.text);
+
+  if (newValue.length ===0) 
     return alert('Ooops! Please type somthing!');
-    $('li#'+element.id+' .context').text(newValue);
-     }
+  toDo.text = newValue
+  render();
+}
         
