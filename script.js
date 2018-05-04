@@ -67,8 +67,35 @@ function addMessage(element) {
   render();
 }  
 
-function removeMessage(element){
-  $('li#'+element.id).remove();
+function removeMessage(todoId){
+  var idx = dataSet.findIndex(function (element){return element.id == todoId})
+  
+  var idx = -1
+  for(i = 0; i < dataSet.length; i++) {
+    if (dataSet[i].id == todoId) {
+      idx = i;
+      break
+    }
+  }
+
+  for(i in dataSet) {
+    if (dataSet[i].id == todoId) {
+      idx = i;
+      break
+    }    
+  }
+
+  dataSet.forEach(function(el, idx) {
+    if (el.id == todoId) {
+      idx = i;
+      return
+    }    
+  })
+
+
+  console.log("removeMessage: foundIdx: ", idx) 
+  dataSet.splice(idx,1)
+  render();
 }
 
       
